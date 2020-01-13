@@ -4,11 +4,14 @@
     Welcome to {{ title }}!
   </h1>
 </div>
-<h2>Here are some links to help you start: </h2>
+<h2>Here is a sample showing fetched data by table</h2>
 
 <ag-grid-angular
-  style="width: 500px; height: 500px;"
+  style="width: 600px; height: 500px;"
   class="ag-theme-balham"
+  [pagination]="true"
+  [enableSorting]="true"
+  [enableFilter]="true"
   [rowData]="rowData"
   [columnDefs]="columnDefs">
 </ag-grid-angular>
