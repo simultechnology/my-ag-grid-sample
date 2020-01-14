@@ -37,37 +37,11 @@ export class AppComponent implements OnInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-
-    fetch('assets/sample.json')
-      .then(result => result.json())
-      .then(rowData => this.rowData = rowData);
-  }
-
-  countCountries() {
-    const rowData = [];
-    const countrySet = new Set();
-    this.gridApi.forEachNode(node => rowData.push(node.data));
-    rowData.map(obj => {
-      if (obj) {
-        countrySet.add(obj.country);
-      }
-    });
-    console.log(countrySet.size);
-    return countrySet.size;
-  }
-
-  onFirstDataRendered(event) {
-    this.pinnedBottomRowData = this.createData();
-  }
-
-  createData() {
-    const result = [];
-    result.push({
-      country: `count:${this.countCountries()}`,
-    });
-    return result;
   }
 
   ngOnInit() {
+    fetch('assets/sample.json')
+      .then(result => result.json())
+      .then(rowData => this.rowData = rowData);
   }
 }
