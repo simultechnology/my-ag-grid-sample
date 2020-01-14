@@ -8,12 +8,9 @@ import {AllModules} from '@ag-grid-enterprise/all-modules';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements OnInit {
-  gridApi;
-  gridColumnApi;
-  pinnedBottomRowData;
   title = 'my-ag-grid-sample';
   columnDefs = [
-    {headerName: 'Country', field: 'country', width: 120, rowGroup: true},
+    {headerName: 'Country', field: 'country', width: 120, rowGroup: true, suppressCount: true},
     {headerName: 'Year', field: 'year', width: 90, rowGroup: true},
     {headerName: 'Sport', field: 'sport', width: 110},
     {headerName: 'Athlete', field: 'athlete', width: 200},
@@ -26,18 +23,16 @@ export class AppComponent implements OnInit {
   ];
 
   modules = AllModules;
-
   rowData = [];
 
-  defaultColDef = {
-    sortable: true,
-    filter: true
+  autoGroupColumnDef = {
+    width: 200,
+    cellRenderer: 'agGroupCellRenderer',
+    suppressFilter: false,
+    cellRendererParams: {
+      suppressCount: true
+    }
   };
-
-  onGridReady(params) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-  }
 
   ngOnInit() {
     fetch('assets/sample.json')
