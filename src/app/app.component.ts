@@ -1,15 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 
+import {AllModules} from '@ag-grid-enterprise/all-modules';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements OnInit {
+  gridApi;
+  gridColumnApi;
+  pinnedBottomRowData;
   title = 'my-ag-grid-sample';
   columnDefs = [
-    {headerName: 'Country', field: 'country', width: 120, hide: true, rowGroup: true},
-    {headerName: 'Year', field: 'year', width: 90, hide: true, rowGroup: true},
+    {headerName: 'Country', field: 'country', width: 120, rowGroup: true},
+    {headerName: 'Year', field: 'year', width: 90, rowGroup: true},
     {headerName: 'Sport', field: 'sport', width: 110},
     {headerName: 'Athlete', field: 'athlete', width: 200},
     {headerName: 'Gold', field: 'gold', width: 100},
@@ -20,11 +25,49 @@ export class AppComponent implements OnInit {
     {headerName: 'Date', field: 'date', width: 110}
   ];
 
+  modules = AllModules;
+
   rowData = [];
 
-  ngOnInit() {
+  defaultColDef = {
+    sortable: true,
+    filter: true
+  };
+
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+
     fetch('assets/sample.json')
       .then(result => result.json())
       .then(rowData => this.rowData = rowData);
+  }
+
+  countCountries() {
+    const rowData = [];
+    const countrySet = new Set();
+    this.gridApi.forEachNode(node => rowData.push(node.data));
+    rowData.map(obj => {
+      if (obj) {
+        countrySet.add(obj.country);
+      }
+    });
+    console.log(countrySet.size);
+    return countrySet.size;
+  }
+
+  onFirstDataRendered(event) {
+    this.pinnedBottomRowData = this.createData();
+  }
+
+  createData() {
+    const result = [];
+    result.push({
+      country: `count:${this.countCountries()}`,
+    });
+    return result;
+  }
+
+  ngOnInit() {
   }
 }

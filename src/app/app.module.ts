@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { AgGridModule } from 'ag-grid-angular';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { AgGridModule } from 'ag-grid-angular';
   ],
   imports: [
     BrowserModule,
+    FormsModule, // <-- import the FormsModule before binding with [(ngModel)]
     AppRoutingModule,
     AgGridModule.withComponents(null)
   ],
