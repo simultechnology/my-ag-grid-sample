@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 4222",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@ag-grid-enterprise/all-modules": "^22.1.2",
     "@angular/animations": "~8.1.1",
     "@angular/common": "~8.1.1",
     "@angular/compiler": "~8.1.1",
@@ -21,6 +22,7 @@
     "@angular/router": "~8.1.1",
     "ag-grid-angular": "^22.1.1",
     "ag-grid-community": "^22.1.1",
+    "ag-grid-enterprise": "^22.1.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
